@@ -1,12 +1,10 @@
 import React, { useRef, useEffect } from "react";
 import { useGLTF , useTexture, useAnimations, Environment} from "@react-three/drei";
-import { OrbitControls, QuadraticBezierLine } from "@react-three/drei";
+import { OrbitControls,   Html, useProgress } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from 'three'
 import Title from "./Title/Title.js"
-import Fish from  "./Fish/Fish.js"
 import { TentacleMaterial, EyeMaterial, BodyMaterial, OuterMaterial } from "./materials/materials";
-
 
 
 export default function Experience(props) {
@@ -23,6 +21,12 @@ export default function Experience(props) {
   const tex3 = useTexture('tex3-min.jpg');
   const tex4 = useTexture('tex4-min.jpg');
 
+  function LoadingScreen() {
+    const { progress } = useProgress()
+    return <Html center>{progress} % loaded</Html>
+  }
+  
+
   useEffect(() => {
         
            tentacleMaterial.current.uniforms.uTexture.value = tex1
@@ -35,18 +39,13 @@ export default function Experience(props) {
         }, []);
 
         useFrame(() => {
-            // Update the time uniform
 
             if(tentacleMaterial){
             matArr.map( (x) => {
               x.current.uniforms.uTime.value += 0.01;
             })
           }
-           
-        //   console.log(titleRef)
-            // bodyMaterial.current.uniforms.uTime.value += 0.01;
-            // legMaterial.current.uniforms.uTime.value += 0.01;
-        
+     
             
           });
 
@@ -70,12 +69,14 @@ export default function Experience(props) {
   return (
     <>
         <OrbitControls makeDefault enableZoom={true} maxPolarAngle={Math.PI * .5}/>
+
+        
     <Title />
     <Environment
   background={true} // can be true, false or "only" (which only sets the background) (default: false)
-  blur={0} // blur factor between 0 and 1 (default: 0, only works with three 0.146 and up)
+  blur={0} 
   files={['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png']}
-  path="cubeMap3/"
+  path="cubeMap3-min/"
  
 />
 

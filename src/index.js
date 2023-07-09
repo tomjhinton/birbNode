@@ -4,6 +4,7 @@ import { Canvas } from '@react-three/fiber'
 import Experience from './Experience'
 import Lights from './Lights'
 
+
 const root = ReactDOM.createRoot(document.querySelector('#root'))
 
 root.render(
@@ -20,4 +21,5 @@ root.render(
         <Lights />
         <Experience />
     </Canvas>
+    
 )
